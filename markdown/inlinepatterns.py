@@ -159,13 +159,14 @@ AUTOMAIL_RE = r'<([^<> !]+@[^@<> ]+)>'
 """ Match an automatic email link (`<me@example.com>`). """
 
 HTML_RE = (
-    r'(<(\/?[a-zA-Z][^<>@ ]*( [^<>]*)?|'          # Tag
+    r'(<([a-zA-Z][^<>@ ]*)( [^<>]*)?>.*?</\2>|'   # Complete container
+    r'<(\/?[a-zA-Z][^<>@ ]*( [^<>]*)?|'           # Tag
     r'!--(?:(?!<!--|-->).)*--|'                   # Comment
     r'[?](?:(?!<[?]|[?]>).)*[?]|'                 # Processing instruction
     r'!\[CDATA\[(?:(?!<!\[CDATA\[|\]\]>).)*\]\]'  # `CDATA`
     ')>)'
 )
-""" Match an HTML tag (`<...>`). """
+""" Match an HTML tag or container (`<...>`). """
 
 ENTITY_RE = r'(&(?:\#[0-9]+|\#x[0-9a-fA-F]+|[a-zA-Z0-9]+);)'
 """ Match an HTML entity (`&#38;` (decimal) or `&#x26;` (hex) or `&amp;` (named)). """
